@@ -9,7 +9,6 @@ import { RoleList } from "@/pages/Roles";
 import { PriceConfigList } from "@/pages/PriceConfigs";
 import { CreateMovie, EditMovie, MovieList } from "@/pages/Movies";
 import {
-  ShowtimeList,
   CreateShowtime,
   ShowtimeCalendarPage,
 } from "@/pages/Showtimes";

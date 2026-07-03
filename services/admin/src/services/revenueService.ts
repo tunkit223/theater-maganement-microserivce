@@ -1,4 +1,4 @@
-import httpClient from "@/configurations/httpClient";
+// httpClient intentionally not imported — revenue API disabled in microservice mode
 
 // DISABLED: /revenue endpoint không tồn tại trong microservice (không có trong payment-api.md, booking-api.md, catalog-api.md).
 // Các hàm dưới đây được giữ lại nhưng comment out để không gọi API.
@@ -77,9 +77,9 @@ export interface RevenueReportRow {
 
 // Placeholder export để tránh lỗi import ở các nơi đang dùng revenueService
 export const revenueService = {
-  getMovieRevenue: async (_params: any) => { console.warn("revenueService.getMovieRevenue is DISABLED in microservice"); return []; },
-  getDailyRevenue: async (_params: any) => { console.warn("revenueService.getDailyRevenue is DISABLED in microservice"); return []; },
-  getRevenueReports: async (_params: any) => { console.warn("revenueService.getRevenueReports is DISABLED in microservice"); return []; },
-  generateReport: async (_payload: any) => { console.warn("revenueService.generateReport is DISABLED in microservice"); return null; },
+  getMovieRevenue: async (_params: any): Promise<MovieRevenue[]> => { console.warn("revenueService.getMovieRevenue is DISABLED in microservice"); return []; },
+  getDailyRevenue: async (_params: any): Promise<DailyRevenueRow[]> => { console.warn("revenueService.getDailyRevenue is DISABLED in microservice"); return []; },
+  getRevenueReports: async (_params: any): Promise<RevenueReportRow[]> => { console.warn("revenueService.getRevenueReports is DISABLED in microservice"); return []; },
+  generateReport: async (_payload: any): Promise<RevenueReportRow | null> => { console.warn("revenueService.generateReport is DISABLED in microservice"); return null; },
 };
 

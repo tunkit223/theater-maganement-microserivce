@@ -140,7 +140,7 @@ export function ShowtimeCalendarPage() {
                     </div>
                   </div>
                   <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <span>Capacity: {room.capacity ?? "—"} seats</span>
+                    <span>Capacity: {room.totalSeats ?? "—"} seats</span>
                     <span
                       className={`px-2 py-0.5 rounded-full text-xs font-medium ${room.status === "ACTIVE"
                           ? "bg-green-100 text-green-700"
@@ -167,7 +167,7 @@ export function ShowtimeCalendarPage() {
             <div className="text-right">
               <h3 className="text-lg font-semibold text-foreground">{selectedRoom?.name}</h3>
               <p className="text-sm text-muted-foreground capitalize">
-                {selectedRoom?.roomType?.toLowerCase().replace("_", " ")} · {selectedRoom?.capacity} seats
+                {selectedRoom?.roomType?.toLowerCase().replace("_", " ")} · {selectedRoom?.totalSeats} seats
               </p>
             </div>
           </div>

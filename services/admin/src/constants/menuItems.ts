@@ -1,7 +1,6 @@
 import {
   Film,
   Calendar,
-  Ticket,
   LayoutDashboard,
   Briefcase,
   TicketCheck,
@@ -9,8 +8,6 @@ import {
   Receipt,
   BarChart3,
   DoorOpen,
-  CalendarClock,
-  Wrench,
   MessageSquare,
   Image,
   Bell,
