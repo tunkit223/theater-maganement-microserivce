@@ -1,5 +1,6 @@
 package theater_mgnt.microserivce.api_gateway.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -14,25 +15,39 @@ import java.util.List;
 
 @Configuration
 public class WebClientConfiguration {
+
+    @Value("${IDENTITY_SERVICE_HOST:localhost}")
+    private String identityServiceHost;
+
     @Bean
     WebClient webClient() {
         return WebClient.builder()
-                .baseUrl("http://localhost:8081/identity")
+                .baseUrl("http://" + identityServiceHost + ":8081/identity")
                 .build();
     }
 
     @Bean
     CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("*"));
+
+        // Cho phép các origin cụ thể (không dùng "*" khi có credentials)
+        corsConfiguration.setAllowedOrigins(List.of(
+            "http://localhost:5173",
+            "http://localhost:3000",
+            "https://theater-maganement-microserivce-5h9.vercel.app"
+        ));
+
         corsConfiguration.setAllowedHeaders(List.of("*"));
-        corsConfiguration.setAllowedMethods(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
 
         return new CorsWebFilter(urlBasedCorsConfigurationSource);
     }
+
     @Bean
     IdentityClient identityClient(WebClient webClient){
         HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory
